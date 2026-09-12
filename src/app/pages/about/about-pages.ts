@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'page-about',
@@ -6,4 +7,16 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   templateUrl: './about-pages.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class AboutPages { }
+export default class AboutPages implements OnInit {
+
+  private title = inject(Title)
+  private meta = inject(Meta)
+
+  ngOnInit() {
+    this.title.setTitle('About Page');
+    this.meta.updateTag({ name: 'description', content: 'About Page Description' });
+    this.meta.updateTag({ name: 'og:title', content: 'About Page Description' });
+    this.meta.updateTag({ name: 'keywords', content: 'About, Facundo, Pokemon, Pikachu' });
+  }
+
+}
